@@ -618,3 +618,31 @@ section#faq h3 {
   color: #ccc;
   background: #f7f7f7;
 }
+
+
+@media (max-width: 768px) {
+  .carousel-wrapper {
+    width: 100% !important;
+    padding: 0 16px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  .carousel-wrapper .slides {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 1rem;
+  }
+
+  .carousel-wrapper .slide {
+    flex: 0 0 80%;
+    scroll-snap-align: start;
+    margin-right: 8px;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+}
