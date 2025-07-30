@@ -162,27 +162,6 @@ function scrollToSection(id) {
 
 
 
-const slidesContainer = document.querySelector(".slides");
-const slideWidth = 280 + 24; 
-let currentIndex = 0;
-const totalSlides = document.querySelectorAll(".slide").length;
-const slidesPerView = 3;
-
-document.getElementById("nextSlide").addEventListener("click", () => {
-  if (currentIndex < totalSlides - slidesPerView) {
-    currentIndex++;
-    slidesContainer.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-  }
-});
-
-document.getElementById("prevSlide").addEventListener("click", () => {
-  if (currentIndex > 0) {
-    currentIndex--;
-    slidesContainer.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-  }
-});
-
-
 const dateInput = document.getElementById("date");
 const timeInput = document.getElementById("time");
 const timeSlotsContainer = document.getElementById("timeSlots");
@@ -211,9 +190,9 @@ function generateTimeSlots(dayOfWeek) {
   let endHour;
 
   if (dayOfWeek === 6) { 
-    endHour = 18;
+    endHour = 17;
   } else { 
-    endHour = 19;
+    endHour = 18;
   }
 
   const slots = [];
@@ -221,7 +200,7 @@ function generateTimeSlots(dayOfWeek) {
     slots.push(`${hour.toString().padStart(2, '0')}:00`);
     slots.push(`${hour.toString().padStart(2, '0')}:30`);
   }
-  slots.push(`${endHour.toString().padStart(2, '0')}:00`);
+  slots.push(`${endHour.toString().padStart(2, '0')}:30`);
   return slots;
 }
 
@@ -232,7 +211,6 @@ function renderTimeSlots(dayOfWeek) {
 
   slots.forEach(slot => {
     const btn = document.createElement("button");
-    btn.textContent = slot;
     btn.classList.add("time-slot-button");
     btn.addEventListener("click", () => {
       timeInput.value = slot;
@@ -249,3 +227,45 @@ const todayDay = today.getDay();
 if (todayDay !== 0) {
   renderTimeSlots(todayDay);
 }
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const slidesContainer = document.getElementById("slidesContainer");
+  const slides = document.querySelectorAll(".slide");
+  const carouselWrapper = document.querySelector(".carousel-wrapper");
+  let currentIndex = 0;
+
+  function getSlideMetrics() {
+    const slide = slides[0];
+    const style = window.getComputedStyle(slide);
+    const slideWidth = slide.offsetWidth;
+    const marginRight = parseFloat(style.marginRight || 0);
+    const totalSlideWidth = slideWidth + marginRight;
+    const visibleWidth = carouselWrapper.offsetWidth;
+    const visibleSlides = Math.floor(visibleWidth / totalSlideWidth);
+    const maxIndex = Math.max(0, slides.length - visibleSlides);
+    return { totalSlideWidth, maxIndex };
+  }
+
+  function updateCarousel() {
+    const { totalSlideWidth } = getSlideMetrics();
+    slidesContainer.style.transform = `translateX(-${currentIndex * totalSlideWidth}px)`;
+  }
+
+  document.getElementById("nextSlide").addEventListener("click", () => {
+    const { maxIndex } = getSlideMetrics();
+    if (currentIndex < maxIndex) {
+      currentIndex++;
+      updateCarousel();
+    }
+  });
+
+  document.getElementById("prevSlide").addEventListener("click", () => {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateCarousel();
+    }
+  });
+
+  window.addEventListener("resize", updateCarousel);
+});
