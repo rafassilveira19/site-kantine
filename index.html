@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+ 
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
+
+  <title>Kantine - Confeitaria</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav>
+    <div class="menu">
+      <a href="#about">Sobre</a>
+      <a href="#cardapio">Cardápio</a>
+      <a href="#cancel">Cancelamento</a>
+      <a href="#map">Onde nos encontrar</a>
+      <a href="#faq">FAQ</a>
+    </div>
+  </nav>
+
+
+
+
+  <section id="carousel">
+  <div class="carousel-wrapper">
+    <div class="slides" id="slidesContainer">
+      <div class="slide" data-sabor="Chocolatudo" data-key="chocolatudo">
+        <img src="images/chocolatudo.png" alt="Chocolatudo" />
+        <h3>Chocolatudo</h3>
+        <p>Bolo 100% cacau e mousse de chocolate. Decorado com morangos frescos.</p>
+<div class="slide-buttons">
+  <button class="btn-order">Fazer Pedido</button>
+  <button class="btn-details">Ver Detalhes</button>
+</div>
+      </div>
+      <div class="slide" data-sabor="Marta Rocha Naked" data-key="martarocha">
+        <img src="images/martarochanaked.png" alt="Marta Rocha Naked" />
+        <h3>Marta Rocha Naked</h3>
+        <p>Bolo de chocolate, creme Kantine com crocante de castanha, suspiro caseiro, pão de ló, geleia de damasco, creme de leite fresco e crocante de castanha. Na versão naked ele não vai decorado com a camada de castanhas em volta.</p>
+        <div class="slide-buttons">
+  <button class="btn-order">Fazer Pedido</button>
+  <button class="btn-details">Ver Detalhes</button>
+</div></div>
+
+      <div class="slide" data-sabor="Marta Rocha Tradicional" data-key="martarochatrad">
+        <img src="images/martarochatrad.png" alt="Marta Rocha Tradicional" />
+        <h3>Marta Rocha Tradicional</h3>
+        <p>Bolo de chocolate, creme Kantine com crocante de castanha, suspiro caseiro, pão de ló, geleia de damasco, creme de leite fresco e crocante de castanha. Versão tradicional com uma camada de castanhas em volta.</p>
+        <div class="slide-buttons">
+  <button class="btn-order">Fazer Pedido</button>
+  <button class="btn-details">Ver Detalhes</button>
+</div>
+</div>
+      <div class="slide" data-sabor="Léo Ávila" data-key="leoavila">
+        <img src="images/leoavila.png" alt="Léo Ávila" />
+        <h3>Léo Ávila</h3>
+        <p>O bolo do pai da Luana. Pão de ló recheado com compota caseira de abacaxi e creme Kantine. Decorado com raspas de
+chocola e branco.</p>
+        <div class="slide-buttons">
+  <button class="btn-order">Fazer Pedido</button>
+  <button class="btn-details">Ver Detalhes</button>
+</div>
+    </div>
+    <div class="slide" data-sabor="Pistache com Frutas Vermelhas" data-key="pistache">
+        <img src="images/pistache.png" alt="Léo Ávila" />
+        <h3>Pistache com Frutas Vermelhas</h3>
+        <p>Pão de ló cortado em fatias fininhas recheado com camadas de creme de pistache e geleia de frutas vermelhas.</p>
+        <div class="slide-buttons">
+  <button class="btn-order">Fazer Pedido</button>
+  <button class="btn-details">Ver Detalhes</button>
+</div>
+    </div>
+   </div>
+    <div class="controls">
+  <button id="prevSlide">←</button>
+  <button id="nextSlide">→</button>
+</div>
+</div>
+
+
+  </section>
+
+  <!-- Modal do pedido -->
+  <div id="orderModal" style="display:none;">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal()">×</button>
+
+      <h3>Faça seu Pedido</h3>
+
+      <!-- Imagem do bolo -->
+      <img id="modalBoloImg" src="" alt="Imagem do bolo" />
+
+      <!-- Descrição do bolo -->
+      <p id="modalBoloDescricao"></p>
+
+      <label for="flavor">Sabor</label>
+      <select id="flavor" disabled></select>
+
+      <label for="size">Tamanho</label>
+      <select id="size">
+        <option value="Mini">Mini</option>
+        <option value="P">P</option>
+        <option value="M">M</option>
+        <option value="G">G</option>
+        <option value="GG">GG</option>
+      </select>
+
+      <div id="tamanhoInfo"></div>
+
+      <label for="date">Data de Retirada</label>
+      <input type="date" id="date" />
+
+      <label for="time">Horário</label>
+<input type="hidden" id="time" />
+<div id="timeSlots"></div>
+
+
+
+
+      <label for="name">Nome</label>
+      <input type="text" id="name" placeholder="Seu nome" />
+
+
+      <button id="sendOrder">Enviar pelo WhatsApp</button>
+    </div>
+  </div>
+
+  
+<header id="about">
+  <!-- DIV dedicada ao fundo -->
+  <div class="about-bg"></div>
+
+  <div class="about-content">
+    <div class="about-text">
+      <h1>SOBRE A KANTINE E A LUANA</h1>
+      <h2>CHEF LUANA ÁVILA</h2>
+      <p>
+        Doutora em Geografia, Luana Ávila largou tudo para viver sua paixão: fazer bolos.
+        Após duas temporadas na França — uma para o doutorado e outra para estudar
+        gastronomia — nasceu a Kantine, uma confeitaria que une brasilidade, humor,
+        criatividade e um toque francês.
+      </p>
+    </div>
+    <div class="about-photo">
+      <img src="images/LUANA.png" alt="Chef Luana Ávila">
+    </div>
+  </div>
+</header>
+
+
+
+
+  <script src="script.js"></script>
+</body>
+</html>
