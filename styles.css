@@ -106,13 +106,13 @@ section#carousel {
   gap: 1.5rem;
   max-width: 100%;
   margin: 0 auto;
-  transition: transform 0.4s ease;
+  transition: transform 0.3s ease;
   align-items: stretch;
 }
 
 
 .slide {
-  flex: 0 0 260px;
+  flex: 0 0 auto;
   background: white;
   border: 2px solid var(--color-salmao);
   border-radius: var(--border-radius);
@@ -131,7 +131,8 @@ section#carousel {
   will-change: transform;
   contain: paint;
   overflow: hidden;
-
+ width: 260px;
+ margin-right: 24px;
 }
 
 .slide button {
